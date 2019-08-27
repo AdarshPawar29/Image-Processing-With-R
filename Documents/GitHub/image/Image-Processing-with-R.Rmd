@@ -1,0 +1,58 @@
+---
+title: "Image-Processing-With-R"
+author: "Adarsh Pawar"
+date: "27/08/2019"
+output: pdf_document
+---
+## Load Packages
+```{r setup, include=FALSE}
+#install.packages("BiocManager") 
+#BiocManager::install("EBImage")
+library(EBImage)
+#install_keras()
+library(keras)
+#keras is a high level neural network API for deep learning from TenserFlow Google. 
+```
+
+##  Read images
+
+```{r}
+
+readImage("Image/HD1.jpg")
+pics <- c('Image/HD1.jpg', 'Image/HD2.jpg', 'Image/HD3.jpg', 'Image/HD4.jpg', 'Image/HD5.jpg', 'Image/HD6.jpg', 'Image/HD7.jpg', 'Image/HD8.jpg', 'Image/HD9.jpg', 'Image/P1.jpg', 'Image/P2.jpg', 'Image/P3.jpg', 'Image/P4.jpg', 'Image/P5.jpg', 'Image/P6.jpg', 'Image/P7.jpg', 'Image/P8.jpg', 'Image/P9.jpg')
+myPic <- list()
+for (i in 1:18) 
+{
+  myPic[[i]] <- readImage(pics[i])
+}
+print(readImage(pics[3]))
+
+```
+
+
+## Explore
+```{r pressure}
+print(myPic[[1]])
+display(myPic[[8]])
+summary(myPic[[1]])
+hist(myPic[[2]])
+str(myPic)
+```
+
+## Resize
+```{r pressure, echo=FALSE}
+for (i in pics) 
+{
+  mypic[[i]] <- resize(mypic[[i]], ---, ---)
+}
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
