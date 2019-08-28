@@ -48,6 +48,24 @@ for (i in 1:18)
 str(myPic)
 ```
 
+## Reshape
+```{r pressure, echo=FALSE}
+for (i in 1:18) 
+{
+  myPic[[i]] <- array_reshape(myPic[[i]], c(225, 225, 3))
+}
+str(myPic)
+```
+
+## Row Binding for training
+```{r pressure, echo=FALSE}
+trainx <- NULL
+for (i in 1:18) 
+{
+  trainx <- rbind(trainx, myPic[[i]]) 
+}
+str(trainx)
+```
 ## Reshap
 ```{r pressure, echo=FALSE}
 for (i in 1:18) 
