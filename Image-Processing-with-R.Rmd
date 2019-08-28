@@ -41,9 +41,9 @@ str(myPic)
 
 ## Resize
 ```{r pressure, echo=FALSE}
-for (i in pics) 
+for (i in 1:18) 
 {
-  mypic[[i]] <- resize(mypic[[i]], ---, ---)
+  myPic[[i]] <- resize(myPic[[i]], 225, 225)
 }
 ```
 
