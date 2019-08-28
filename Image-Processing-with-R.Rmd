@@ -45,6 +45,16 @@ for (i in 1:18)
 {
   myPic[[i]] <- resize(myPic[[i]], 225, 225)
 }
+str(myPic)
+```
+
+## Reshap
+```{r pressure, echo=FALSE}
+for (i in 1:18) 
+{
+  myPic[[i]] <- array_reshape(myPic[[i]], c(225, 225, 3))
+}
+str(myPic)
 ```
 
 ## Including Plots
