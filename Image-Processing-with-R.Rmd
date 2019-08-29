@@ -98,13 +98,41 @@ testLables
 
 ## Model
 
-```{r pressure, echo=FALSE}
+```{r pressure}
 model <- keras_model_sequential()
 model %>%
-  layer_dense(units = 256, activation = 'relu', input_shape = c(151875)) %>%
-  layer_dense(units = 128, activation = 'relu') %>%
+  layer_dense(units = 644, activation = 'relu', input_shape = c(151875)) %>%
+  layer_dense(units = 322, activation = 'relu') %>%
   layer_dense(units = 2, activation = 'softmax')
 summary(model)
 ```
+## Compile
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r pressure, echo=FALSE}
+model %>%
+         compile(loss = "binary_crossentropy",
+                 optimizer = optimizer_rmsprop(),
+                 metrics = c('accuracy'))
+```
+
+## Fit Model
+
+```{r pressure, echo=FALSE}
+history <- model %>%
+         fit(trainx,
+             trainLables,
+             epochs = 30,
+             batch_size = 32,
+             validation_split = 0.2)
+plot(history)
+```
+## Fit Model
+
+```{r pressure, echo=FALSE}
+model %>% evaluate(trainx, trainLables)
+pred <- model %>% predict_classes(trainx)
+pred
+table(Predicted = pred, Actual = trainy)
+prob <- model %>% predict_proba(trainx)
+cbind(prob, Prected = pred, Actual= trainy)
+```
