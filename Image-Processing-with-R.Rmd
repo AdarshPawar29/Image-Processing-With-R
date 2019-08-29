@@ -12,6 +12,8 @@ library(EBImage)
 #install_keras()
 library(keras)
 #keras is a high level neural network API for deep learning from TenserFlow Google. 
+#devtools::install_github("rstudio/keras")
+
 ```
 
 ##  Read images
@@ -20,10 +22,16 @@ library(keras)
 
 readImage("Image/HD1.jpg")
 pics <- c('Image/HD1.jpg', 'Image/HD2.jpg', 'Image/HD3.jpg', 'Image/HD4.jpg', 'Image/HD5.jpg', 'Image/HD6.jpg', 'Image/HD7.jpg', 'Image/HD8.jpg', 'Image/HD9.jpg', 'Image/P1.jpg', 'Image/P2.jpg', 'Image/P3.jpg', 'Image/P4.jpg', 'Image/P5.jpg', 'Image/P6.jpg', 'Image/P7.jpg', 'Image/P8.jpg', 'Image/P9.jpg')
+testPics <- c("TestImage/HDTest.jpg","TestImage/PTest.jpg")
 myPic <- list()
+myTestPic <- list()
 for (i in 1:18) 
 {
   myPic[[i]] <- readImage(pics[i])
+}
+for (i in 1:2) 
+{
+  myTestPic[[i]] <- readImage(testPics[i])
 }
 print(readImage(pics[3]))
 
@@ -45,6 +53,10 @@ for (i in 1:18)
 {
   myPic[[i]] <- resize(myPic[[i]], 225, 225)
 }
+for (i in 1:2) 
+{
+  myTestPic[[i]] <- resize(myTestPic[[i]], 225, 225)
+}
 str(myPic)
 ```
 
@@ -54,25 +66,30 @@ for (i in 1:18)
 {
   myPic[[i]] <- array_reshape(myPic[[i]], c(225, 225, 3))
 }
-str(myPic)
+for (i in 1:2) 
+{
+  myTestPic[[i]] <- array_reshape(myTestPic[[i]], c(225, 225, 3))
+}
+str(myTestPic)
 ```
 
-## Row Binding for training
+## Row Binding for training and testing
 ```{r pressure, echo=FALSE}
 trainx <- NULL
 for (i in 1:18) 
 {
   trainx <- rbind(trainx, myPic[[i]]) 
 }
-str(trainx)
+
+testx <- rbind(myTestPic[[1]], myTestPic[[2]])
+trainy <- c(0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1)
+testy <- c(0,1)
+
 ```
-## Reshap
+## On Hot Encoding
 ```{r pressure, echo=FALSE}
-for (i in 1:18) 
-{
-  myPic[[i]] <- array_reshape(myPic[[i]], c(225, 225, 3))
-}
-str(myPic)
+trainLables <- to_categorical(trainy)
+
 ```
 
 ## Including Plots
